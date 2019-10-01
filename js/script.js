@@ -9,6 +9,8 @@ FSJS project 2 - List Filter and Pagination
 /*** 
    Add your global variables that store the DOM elements you will 
    need to reference and/or manipulate. 
+
+
    
    But be mindful of which variables should be global and which 
    should be locally scoped to one of the two main functions you're 
@@ -17,7 +19,8 @@ FSJS project 2 - List Filter and Pagination
    scoped to that function.
 ***/
 
-
+const listItems = document.querySelector(' .student-list').children; //var for storing student list items
+const itemsPerPage = 10; //var for storing items per page (10)
 
 
 /*** 
@@ -35,14 +38,25 @@ FSJS project 2 - List Filter and Pagination
        "invoke" the function 
 ***/
 
+function showPage = (list, page) => { //function to hide all items in list except the ten intended to show.
+   let startIndex = (page * itemsPerPage) - itemsPerPage; //var for storing start index of items to be displayed on given page
+   let endIndex = page * itemsPerPage; //var for storing end index of items to be displayed on given page
+ }
 
-
+for (let i = 0; i < list.length; i++) { //looping over items in list parameter
+   if (i >= startIndex && i < endIndex) { // if index of list item is >= index of first item, display on the page
+      list[i].style.display = '';
+   } else {
+      list[i].style.display = 'none'; //otherwise display none
+      }
+   }
+  
+showPage(listItems, 1); //list items to be displayed on page 1
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
    functionality to the pagination buttons.
-***/
-
+***
 
 
 
