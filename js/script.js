@@ -89,3 +89,5 @@ const appendPageLinks = (list) => { //function to create, append, and add functi
       );
    }
 } 
+showPage(listItems, 1);
+appendPageLinks(listItems);
