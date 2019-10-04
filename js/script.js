@@ -18,16 +18,16 @@ const showPage = (list, page) => { //two params: 'list' reps actual list of stud
 
    for (let i = 0; i < list.length; i += 1){ //loop over 'list' param
       if (i >= startStudentIndex && i < endStudentIndex){ //display any list item with index <= to startStudentIndex AND > than endStudentIndex var
-         listItems[i].style.display = 'block';
+         listItems[i].style.display = 'block'; //determines how to handle content based on given rules (hide or display)
       } else {
-         listItems[i].style.display = 'none';
+         listItems[i].style.display = 'none'; 
          
       }   
    } 
 }
 
-const page = document.querySelector('.page');
-   const div = document.createElement('div');
+const page = document.querySelector('.page'); // returns first 'page' element that matches .page class
+   const div = document.createElement('div'); //creates 'div' element to be added to DOM
    div.className = ('pagination'); //container div element with class name 'pagination'
    page.appendChild(div); // 'page' appended to div element
  
@@ -42,7 +42,7 @@ const appendPageLinks = (list) => { // One param: 'list' reps actual list of stu
       const li = document.createElement('li'); // each 'li' element contains 'a' element with 'href' attribute and '#' element; 
       let a = document.createElement('a');
       a.href = '#';
-      const pageAmount = a.textContent = i + 1; //text set to page num each link will show
+      const pageAmount = a.textContent = i + 1; // text set to page num each link will show
       li.appendChild(a); // 'li' appends to 'a'
       ul.appendChild(li); // 'ul' appends to 'li'
       div.appendChild(ul); // 'div' appends to 'ul'
@@ -60,5 +60,6 @@ const appendPageLinks = (list) => { // One param: 'list' reps actual list of stu
       );
    }
 } 
+
 showPage(listItems, 1); // 'showPage' function called, 'listItems' var (global) and '1' (repping first page) passed in as arguments
 appendPageLinks(listItems); // 'appendPageLinks' function called, 'listItems' (global) passed in as argument
