@@ -68,6 +68,7 @@ appendPageLinks(listItems); // 'appendPageLinks' function called, 'listItems' (g
 const searchBar = () => {
    const pageHeader = document.querySelector('.page-header');
    const createSearchDiv = document.createElement('div');
+   createSearchDiv.innerHTML = `<input placeholder="Search for students..."><button>Search</button>`;
    createSearchDiv.className = 'student-search';
    const input = document.createElement('input');
    input.className = ('input');
@@ -97,7 +98,7 @@ noResultAdded.style.display= '';
 studentList.appendChild(noResultAdded);
 }
 
-button.addEventListener('click', () => {
+button.addEventListener('click', (event) => {
    searchFunc(input, studentList);
    
    });
@@ -106,3 +107,4 @@ button.addEventListener('click', () => {
       searchFunc(input, studentList);
    
    });
+ appendSearchBar();
