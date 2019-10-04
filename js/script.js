@@ -39,22 +39,25 @@ const numPerPage = 10; //var for storing items per page (10)
 
 const showPage = (list, page) => { // function to hide all items from student list except the ten intended to be displayed
    let startStudentIndex = (page * numPerPage) - numPerPage; //var for storing start index of items to be displayed on given page
-   let endStudentIndex = (page * numPerPage) - 1; // var for storing end index of items to be displayed on given page
+   let endStudentIndex = (page * numPerPage); // var for storing end index of items to be displayed on given page
 
-   const ul = document.querySelector('ul');
-      for (let i = 0; i < list.length; i += 1) { // looping over items in list parameter
+   for (let i = 0; i < listItems.length; i += 1) { // looping over items in list parameter
          list[i].style.display = 'none';
    }
 
-   for (let i = 0; i = list.length; i += 1) {
+   for (let i = 0; i = listItems.length; i += 1) {
       if (i >= startStudentIndex && i < endStudentIndex) { // if index of list item is >= index of first item, display on the page
-         list[i].style.display = 'block';
-         ul.appendChild(list[i]);
+         listItems[i].style.display = 'block';
+         
       }   
    } 
 }
 
-
+const page = document.querySelector('.page');
+   let div = document.createElement('div');
+   div.className = ('pagination'); //container div element with class name 'pagination'
+   page.appendChild(div); // ...and appended to div element
+ 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
    functionality to the pagination buttons.
@@ -62,41 +65,29 @@ const showPage = (list, page) => { // function to hide all items from student li
 
 
 const appendPageLinks = (list) => { //function to create, append, and add functionality to pagination links
-   let div = document.createElement('div'); //div element
-   let page = document.querySelector('.page'); //declaration for class name 'page'
-   div.classname = 'pagination'; //container div element with class name 'pagination'
-   page.appendChild(div); // ...and appended to div element
- 
-  
-   const ul = document.createElement('ul');
-   div.appendChild(ul);
-
+   div.innerHTML = '';
    const numOfPages = Math.ceil(list.length / numPerPage);
-
-   for(let i = 0; i < numOfPages; i += 1) {
-      let li = document.createElement('li');
+   const ul = document.createElement('ul');
+   for (let i = 0; i < numOfPages; i += 1) {
+      const li = document.createElement('li');
       let a = document.createElement('a');
-         ul.appendChild(li);
-         li.appendChild(a);
-         a.setAttribute('href', '#');
-         a.textContent = i + 1;
-      if(i == 0) {
-         a.className = 'active';
-      }
-   }
+      a.href = '#';
+      const pageAmount = a.textContent = i + 1;
+      li.appendChild(a);
+      ul.appendChild(li);
+      div.appendChild(ul);
 
-   const a = document.getElementsByTagName('a');
-   for(let i = 0; i < a.length; i += 1) {
-      a[i].addEventListener('click', (event) => {
-         for(let i = 0; i < a.length; i += 1) {
-            a[i].removeAttribute('class');
+      ul.firstElementChild.firstElementChild.className = "active" ;
+
+   
+
+   a.addEventListener('click', (event) => {
+         for(let i = 0; i < ul.children.length; i++) {
+           ul.children[i].firstElementChild.className = '';
          }
          event.target.className = 'active';
-         showPage(listItems, a[i].textContent);
+         showPage(listItems, pageAmount);
        }
       );
    }
-   
-}
-showPage(listItems, 1);
-appendPageLinks(listItems);
+} 
