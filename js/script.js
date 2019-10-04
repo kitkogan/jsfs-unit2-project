@@ -68,12 +68,12 @@ appendPageLinks(listItems); // 'appendPageLinks' function called, 'listItems' (g
 const searchBar = () => {
    const pageHeader = document.querySelector('.page-header');
    const createSearchDiv = document.createElement('div');
-   createSearchDiv.className = 'student-search';
    const searchInput = document.createElement('input');
-   searchInput.className = ('search-input');
-   searchInput.placeholder = 'Search for students...';
    const searchButton = document.createElement('button');
-   button.textContent = 'Search';
+   createSearchDiv.className = 'student-search';
+   searchInput.className = 'search-input';
+   searchInput.placeholder = 'Search for students...';
+   searchButton.textContent = 'Search';
    PageHeader.appendChild(createSearchDiv);
    const pageHeaderChild = pageHeader.lastElementChild;
    pageHeaderChild.appendChild(searchInput);
@@ -82,29 +82,87 @@ const searchBar = () => {
 }
 
 const noReturn = () => {
-   const checkResults = document.querySelector('.no-result-returned');
+   const checkResults = document.querySelector('.no-result');
    if (checkResults) {
       const ul = document.querySelector('.student-list');
-      const li = ul.querySelector('.no-result-returned');
+      const li = ul.querySelector('.no-result');
       ul.removeChild(li);
    }
 
 const studentList = documentQuerySelector('.student-list');
 const NoResultAdded = document.createElement('li');
-NoResultAdded.className = '.no-result';
+NoResultAdded.className = 'no-result';
 NoResultAdded.textContent = 'No result returned';
-noResultAdded.style.display= '';
-studentList.appendChild(noResultAdded);
+noResultAdded.style.display= ''
+const checkNoResult = document.quersySelector('.no-result');
+   if (checkNoResult) {
+      studentList.appendChild(checkNoResult)
+   }
+
 }
 
-button.addEventListener('click', (event) => {
-   searchFunc(input, studentList);
-   
-   });
+document.addEventListener('click', (event) => {
+   const selectATags = document.quesrySelectorAll('a');
+   const select = event.target;
 
-   input.addEventListener('keyup', () => {
-      searchFunc(input, studentList);
-   
+   if (target.tagName == 'a'){
+      for (let i = 0; i < selectATags.length; i += 1) {
+         select[i].className = '';
+      
+      }
+      select.className = "active";
+      showPage(list, parseInt(target.textContent));
+      }
    });
    
- appendSearchBar();
+const searchButton = document.querySelector('.student-search button');
+const inputField = document.querySelector('input');
+
+searchButton.addEventListener('submit', (event) => {
+   const input = document.querySelector('input');
+   var genNewlist = [] //new array to hold in matches
+   if (event.target.tagName == "BUTTON") {    //if but search button was clicked
+      for (let i = 0; i < list.length; i += 1) {      //loop through original list
+         const h3 = list[i].querySelector("h3");      
+         const text = h3.textContent.toUpperCase();      //assigns the text content converted to lower case  of the h3's to text      
+         if (text.includes(input.value)) { //if text field is not blank and has a text match
+            genNewlist.push(list[i]); // push text matched names to new list
+         } else {
+            list[i].style.display = 'none'; // hide non match
+         }
+      }
+      
+   }
+   showPage(genNewlist, 1); // returns new page with matches
+   appendPageLinks(genNewlist); // returns new page links matching number of matches
+});
+
+//event listener for keyup
+inputForm.addEventListener('keyup', () => {
+   const input = document.querySelector('input');
+   var genNewlist = []  //new array to hold in matches
+   for (let i = 0; i < list.length; i += 1) {   //loop through original list 
+      const h3 = list[i].querySelector("h3");
+      const text = h3.textContent.toUpperCase(); //looking only at name text
+      if (text.includes(input.value)) { //if text field is not blank and has a text match
+         genNewlist.push(list[i]);  // push text matched names to new list
+      } else {
+         list[i].style.display = 'none'; // hide non match
+      }
+      
+   } 
+
+   if (genNewlist.length == 0) {
+      noResults(); //if list is blank run noResult()
+   } else {
+      const checkNoResult = document.querySelector('.no-result');
+      if (checkNoResult) {
+         const ul = document.querySelector('.student-list');
+         const li = ul.querySelector('.no-result');
+         ul.removeChild(li);
+      }
+   }
+   showPage(newlist, 1); // returns new page with matches
+   appendPageLinks(newlist); // returns new page links matching number of matches
+});
+appendSearchBar();
