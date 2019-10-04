@@ -19,7 +19,7 @@ FSJS project 2 - List Filter and Pagination
    scoped to that function.
 ***/
 
-const listItems = document.getElementsByClassName('student-item'); //var for storing student list items
+const listItems = document.getElementsByClassName('.student-item'); //var for storing student list items
 const numPerPage = 10; //var for storing items per page (10)
 
 /*** 
