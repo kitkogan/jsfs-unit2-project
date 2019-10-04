@@ -2,7 +2,7 @@
  Unit 2 Project: List Pagination and Filtering
 
 Goal of earning a 'meets expectations' grade on this project:
--create code that will hide and show HTML on a page by implementing a set of buttons being added to the page dynamoically (pagination links.)
+-create code that will hide and show HTML on a page by implementing a set of buttons being added to the page dynamically (pagination links.)
 -practice unobtrusive JavaScript and progressive enhacement. 
 -show first 10 students at page load, each pagination link shows correct number of students
   -clicking '1' will show students 1-10, '2' shows 11-20, etc
