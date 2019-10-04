@@ -68,18 +68,17 @@ appendPageLinks(listItems); // 'appendPageLinks' function called, 'listItems' (g
 const searchBar = () => {
    const pageHeader = document.querySelector('.page-header');
    const createSearchDiv = document.createElement('div');
-   createSearchDiv.innerHTML = `<input placeholder="Search for students..."><button>Search</button>`;
    createSearchDiv.className = 'student-search';
-   const input = document.createElement('input');
-   input.className = ('input');
-   input.placeholder = 'Search for students...';
-   const button = document.createElement('button');
+   const searchInput = document.createElement('input');
+   searchInput.className = ('search-input');
+   searchInput.placeholder = 'Search for students...';
+   const searchButton = document.createElement('button');
    button.textContent = 'Search';
    PageHeader.appendChild(createSearchDiv);
    const pageHeaderChild = pageHeader.lastElementChild;
-   pageHeaderChild.appendChild(input);
+   pageHeaderChild.appendChild(searchInput);
    const targetSearchDiv = document.querySelector('.student-search');
-   targetSearchDiv.appendChild(button);
+   targetSearchDiv.appendChild(searchButton);
 }
 
 const noReturn = () => {
@@ -107,4 +106,5 @@ button.addEventListener('click', (event) => {
       searchFunc(input, studentList);
    
    });
+   
  appendSearchBar();
