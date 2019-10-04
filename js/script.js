@@ -19,7 +19,7 @@ FSJS project 2 - List Filter and Pagination
    scoped to that function.
 ***/
 
-const listItems = document.getElementsByClassName('.student-item'); //var for storing student list items
+const listItems = document.querySelectorAll('.student-item'); //var for storing student list items
 const numPerPage = 10; //var for storing items per page (10)
 
 /*** 
@@ -39,14 +39,14 @@ const numPerPage = 10; //var for storing items per page (10)
 
 const showPage = (list, page) => { // function to hide all items from student list except the ten intended to be displayed
    let startStudentIndex = (page * numPerPage) - numPerPage; //var for storing start index of items to be displayed on given page
-   let endStudentIndex = page * numPerPage; // var for storing end index of items to be displayed on given page
+   let endStudentIndex = (page * numPerPage) - 1; // var for storing end index of items to be displayed on given page
 
    const ul = document.querySelector('ul');
-   for (let i = 0; i < list.length; i++) { // looping over items in list parameter
+      for (let i = 0; i < list.length; i += 1) { // looping over items in list parameter
          list[i].style.display = 'none';
    }
 
-   for (let i = 0; i = list.length; i++) {
+   for (let i = 0; i = list.length; i += 1) {
       if (i >= startStudentIndex && i < endStudentIndex) { // if index of list item is >= index of first item, display on the page
          list[i].style.display = 'block';
          ul.appendChild(list[i]);
@@ -73,28 +73,29 @@ const appendPageLinks = (list) => { //function to create, append, and add functi
 
    const numOfPages = Math.ceil(list.length / numPerPage);
 
-   for(let i = 0; i < numOfPages; i++) {
+   for(let i = 0; i < numOfPages; i += 1) {
       let li = document.createElement('li');
       let a = document.createElement('a');
          ul.appendChild(li);
          li.appendChild(a);
          a.setAttribute('href', '#');
-         a.textContent = i++;
-      if(i === 0) {
+         a.textContent = i + 1;
+      if(i == 0) {
          a.className = 'active';
       }
    }
 
    const a = document.getElementsByTagName('a');
-   for(let i = 0; i < a.length; i++) {
-      a[i].removeAttribute('class');
+   for(let i = 0; i < a.length; i += 1) {
+      a[i].addEventListener('click', (event) => {
+         for(let i = 0; i < a.length; i += 1) {
+            a[i].removeAttribute('class');
+         }
+         event.target.className = 'active';
+         showPage(listItems, a[i].textContent);
+       }
+      );
    }
-   
-   event.target.className = 'active';
-   showPage(listItems,a[i].textContent);
-   div.innerHTML = pagelinks; //links added to div
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
-let pagelinks = ('ul'); //declaration of pageLinks value
    
 }
 showPage(listItems, 1);
