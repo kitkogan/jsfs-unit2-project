@@ -5,44 +5,19 @@ FSJS project 2 - List Filter and Pagination
    
 // Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
+//create global variables
 
-/*** 
-   Add your global variables that store the DOM elements you will 
-   need to reference and/or manipulate. 
+const listItems = document.querySelectorAll('.student-item'); //var for storing student list items in student list
+const numPerPage = 10; //var for storing number of items to show on each page (10)
 
+//Dynamic 'showPage function' to hide all students except for the 10 intended to show
 
-   
-   But be mindful of which variables should be global and which 
-   should be locally scoped to one of the two main functions you're 
-   going to create. A good general rule of thumb is if the variable 
-   will only be used inside of a function, then it can be locally 
-   scoped to that function.
-***/
-
-const listItems = document.querySelectorAll('.student-item'); //var for storing student list items
-const numPerPage = 10; //var for storing items per page (10)
-
-/*** 
-   Create the `showPage` function to hide all of the items in the 
-   list except for the ten you want to show.
-
-   Pro Tips: 
-     - Keep in mind that with a list of 54 students, the last page 
-       will only display four.
-     - Remember that the first student has an index of 0.
-     - Remember that a function `parameter` goes in the parens when 
-       you initially define the function, and it acts as a variable 
-       or a placeholder to represent the actual function `argument` 
-       that will be passed into the parens later when you call or 
-       "invoke" the function 
-***/
-
-const showPage = (list, page) => { // function to hide all items from student list except the ten intended to be displayed
+const showPage = (list, page) => { //two params: 'list' reps actual list of students & 'page' reps page number; both to be passed in as arguments when function is called 
    const startStudentIndex = (page * numPerPage) - numPerPage; //var for storing start index of items to be displayed on given page
    const endStudentIndex = page * numPerPage; // var for storing end index of items to be displayed on given page
 
-   for (let i = 0; i < listItems.length; i += 1){
-      if (i >= startStudentIndex && i < endStudentIndex){
+   for (let i = 0; i < list.length; i += 1){ //loop over 'list' param
+      if (i >= startStudentIndex && i < endStudentIndex){ //display any list item with index <= to startStudentIndex AND > than endStudentIndex var
          listItems[i].style.display = 'block';
       } else {
          listItems[i].style.display = 'none';
@@ -54,40 +29,36 @@ const showPage = (list, page) => { // function to hide all items from student li
 const page = document.querySelector('.page');
    const div = document.createElement('div');
    div.className = ('pagination'); //container div element with class name 'pagination'
-   page.appendChild(div); // ...and appended to div element
+   page.appendChild(div); // 'page' appended to div element
  
-/*** 
-   Create the `appendPageLinks function` to generate, append, and add 
-   functionality to the pagination buttons.
-***/
 
+//function to create, append, and add functionality to pagination links
 
-const appendPageLinks = (list) => { //function to create, append, and add functionality to pagination links
-   div.innerHTML = '';
-   const numOfPages = Math.ceil(list.length / numPerPage);
-   const ul = document.createElement('ul');
-   for (let i = 0; i < numOfPages; i += 1) {
-      const li = document.createElement('li');
+const appendPageLinks = (list) => { // One param: 'list' reps actual list of students to be passed in as argument when function is called
+   div.innerHTML = ''; // create/append DOM elements for page links: 
+   const numOfPages = Math.ceil(list.length / numPerPage); //var for calculating total number of pages
+   const ul = document.createElement('ul'); // create 'ul' element
+   for (let i = 0; i < numOfPages; i += 1) { // loop to take total number of pages and iterate appropriate number of times, creating correct amount of 'li' elements
+      const li = document.createElement('li'); // each 'li' element contains 'a' element with 'href' attribute and '#' element; 
       let a = document.createElement('a');
       a.href = '#';
-      const pageAmount = a.textContent = i + 1;
-      li.appendChild(a);
-      ul.appendChild(li);
-      div.appendChild(ul);
+      const pageAmount = a.textContent = i + 1; //text set to page num each link will show
+      li.appendChild(a); // 'li' appends to 'a'
+      ul.appendChild(li); // 'ul' appends to 'li'
+      div.appendChild(ul); // 'div' appends to 'ul'
 
-      ul.firstElementChild.firstElementChild.className = "active" ;
+      ul.firstElementChild.firstElementChild.className = "active" ; // initial 'active' class added to first pagination link
 
-   
-
-   a.addEventListener('click', (event) => {
-         for(let i = 0; i < ul.children.length; i++) {
+      // 'click' event listener added to each element
+      a.addEventListener('click', (event) => { 
+         for(let i = 0; i < ul.children.length; i++) { //when a pagination link is clicked, 'active' class name should be added to link clicked
            ul.children[i].firstElementChild.className = '';
          }
-         event.target.className = 'active';
-         showPage(listItems, pageAmount);
+         event.target.className = 'active'; // target properrty evenet object
+         showPage(listItems, pageAmount); // function to show a page called, var for listItems (global) as well as page number passed in as arguments
        }
       );
    }
 } 
-showPage(listItems, 1);
-appendPageLinks(listItems);
+showPage(listItems, 1); // 'showPage' function called, 'listItems' var (global) and '1' (repping first page) passed in as arguments
+appendPageLinks(listItems); // 'appendPageLinks' function called, 'listItems' (global) passed in as argument
