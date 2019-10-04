@@ -19,9 +19,8 @@ FSJS project 2 - List Filter and Pagination
    scoped to that function.
 ***/
 
-const listItems = document.querySelector('.student-list').children; //var for storing student list items
+const listItems = document.getElementsByClassName('student-item'); //var for storing student list items
 const numPerPage = 10; //var for storing items per page (10)
-
 
 /*** 
    Create the `showPage` function to hide all of the items in the 
@@ -41,16 +40,20 @@ const numPerPage = 10; //var for storing items per page (10)
 const showPage = (list, page) => { // function to hide all items from student list except the ten intended to be displayed
    let startStudentIndex = (page * numPerPage) - numPerPage; //var for storing start index of items to be displayed on given page
    let endStudentIndex = page * numPerPage; // var for storing end index of items to be displayed on given page
- 
-for (let i = 0; i < list.length; i++) { // looping over items in list parameter
-   if (i >= startStudentIndex && i < endStudentIndex) { // if index of list item is >= index of first item, display on the page
-         list[i].style.display = '';
-      } else {
-         list[i].style.display = 'none'; //otherwise display none
-      }
+
+   const ul = document.querySelector('ul');
+   for (let i = 0; i < list.length; i++) { // looping over items in list parameter
+         list[i].style.display = 'none';
    }
+
+   for (let i = 0; i = list.length; i++) {
+      if (i >= startStudentIndex && i < endStudentIndex) { // if index of list item is >= index of first item, display on the page
+         list[i].style.display = 'block';
+         ul.appendChild(list[i]);
+      }   
+   } 
 }
-showPage(listItems, 1); //list items to be displayed on page 1
+
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
@@ -61,30 +64,38 @@ showPage(listItems, 1); //list items to be displayed on page 1
 const appendPageLinks = (list) => { //function to create, append, and add functionality to pagination links
    let div = document.createElement('div'); //div element
    let page = document.querySelector('.page'); //declaration for class name 'page'
-   let numOfPages = list.length / numPerPage; //determines how many pages needed
-   let pagelinks = `<ul>`; //declaration of pageLinks value string
-   
-   for (let i = 0; i < numOfPages; i++) { //loop that adds link after scanning through pages
-      if (i === 0) {
-         pageLinks += `
-         <li>
-           <a class="active" href="#">$(i + 1)</a>
-         </li>`
-      } else {
-         pagelinks += `
-         <li>
-            <a href="#">$(i + 1)</a>
-         </li>`
+   div.classname = 'pagination'; //container div element with class name 'pagination'
+   page.appendChild(div); // ...and appended to div element
+ 
+  
+   const ul = document.createElement('ul');
+   div.appendChild(ul);
+
+   const numOfPages = Math.ceil(list.length / numPerPage);
+
+   for(let i = 0; i < numOfPages; i++) {
+      let li = document.createElement('li');
+      let a = document.createElement('a');
+         ul.appendChild(li);
+         li.appendChild(a);
+         a.setAttribute('href', '#');
+         a.textContent = i++;
+      if(i === 0) {
+         a.className = 'active';
       }
    }
-   pagelinks += `
-   </ul>`;
 
+   const a = document.getElementsByTagName('a');
+   for(let i = 0; i < a.length; i++) {
+      a[i].removeAttribute('class');
+   }
+   
+   event.target.className = 'active';
+   showPage(listItems,a[i].textContent);
    div.innerHTML = pagelinks; //links added to div
-   page.appendChild(div); // ...and appended to div element
-   div.classname = 'pagination'; //container div element with class name 'pagination'
-} 
-     
-
-
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
+let pagelinks = ('ul'); //declaration of pageLinks value
+   
+}
+showPage(listItems, 1);
+appendPageLinks(listItems);
