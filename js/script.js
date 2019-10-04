@@ -38,23 +38,21 @@ const numPerPage = 10; //var for storing items per page (10)
 ***/
 
 const showPage = (list, page) => { // function to hide all items from student list except the ten intended to be displayed
-   let startStudentIndex = (page * numPerPage) - numPerPage; //var for storing start index of items to be displayed on given page
-   let endStudentIndex = (page * numPerPage); // var for storing end index of items to be displayed on given page
+   const startStudentIndex = (page * numPerPage) - numPerPage; //var for storing start index of items to be displayed on given page
+   const endStudentIndex = page * numPerPage; // var for storing end index of items to be displayed on given page
 
-   for (let i = 0; i < listItems.length; i += 1) { // looping over items in list parameter
-         list[i].style.display = 'none';
-   }
-
-   for (let i = 0; i = listItems.length; i += 1) {
-      if (i >= startStudentIndex && i < endStudentIndex) { // if index of list item is >= index of first item, display on the page
+   for (let i = 0; i < listItems.length; i += 1){
+      if (i >= startStudentIndex && i < endStudentIndex){
          listItems[i].style.display = 'block';
+      } else {
+         listItems[i].style.display = 'none';
          
       }   
    } 
 }
 
 const page = document.querySelector('.page');
-   let div = document.createElement('div');
+   const div = document.createElement('div');
    div.className = ('pagination'); //container div element with class name 'pagination'
    page.appendChild(div); // ...and appended to div element
  
