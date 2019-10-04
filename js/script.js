@@ -5,12 +5,12 @@ FSJS project 2 - List Filter and Pagination
    
 // Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
-//create global variables
+// Create global variables
 
 const listItems = document.querySelectorAll('.student-item'); //var for storing student list items in student list
 const numPerPage = 10; //var for storing number of items to show on each page (10)
 
-//Dynamic 'showPage function' to hide all students except for the 10 intended to show
+// Create 'showPage function' to hide all students except for the 10 intended to display
 
 const showPage = (list, page) => { //two params: 'list' reps actual list of students & 'page' reps page number; both to be passed in as arguments when function is called 
    const startStudentIndex = (page * numPerPage) - numPerPage; //var for storing start index of items to be displayed on given page
@@ -26,12 +26,13 @@ const showPage = (list, page) => { //two params: 'list' reps actual list of stud
    } 
 }
 
+showPage(listItems, 1); // 'showPage' function called, 'listItems' var (global) and '1' (repping first page) passed in as arguments
+
 const page = document.querySelector('.page'); // returns first 'page' element that matches .page class
    const div = document.createElement('div'); //creates 'div' element to be added to DOM
    div.className = ('pagination'); //container div element with class name 'pagination'
    page.appendChild(div); // 'page' appended to div element
  
-
 //function to create, append, and add functionality to pagination links
 
 const appendPageLinks = (list) => { // One param: 'list' reps actual list of students to be passed in as argument when function is called
@@ -61,5 +62,47 @@ const appendPageLinks = (list) => { // One param: 'list' reps actual list of stu
    }
 } 
 
-showPage(listItems, 1); // 'showPage' function called, 'listItems' var (global) and '1' (repping first page) passed in as arguments
 appendPageLinks(listItems); // 'appendPageLinks' function called, 'listItems' (global) passed in as argument
+
+// create search bar
+const searchBar = () => {
+   const pageHeader = document.querySelector('.page-header');
+   const createSearchDiv = document.createElement('div');
+   createSearchDiv.className = 'student-search';
+   const input = document.createElement('input');
+   input.className = ('input');
+   input.placeholder = 'Search for students...';
+   const button = document.createElement('button');
+   button.textContent = 'Search';
+   PageHeader.appendChild(createSearchDiv);
+   const pageHeaderChild = pageHeader.lastElementChild;
+   pageHeaderChild.appendChild(input);
+   const targetSearchDiv = document.querySelector('.student-search');
+   targetSearchDiv.appendChild(button);
+}
+
+const noReturn = () => {
+   const checkResults = document.querySelector('.no-result-returned');
+   if (checkResults) {
+      const ul = document.querySelector('.student-list');
+      const li = ul.querySelector('.no-result-returned');
+      ul.removeChild(li);
+   }
+
+const studentList = documentQuerySelector('.student-list');
+const NoResultAdded = document.createElement('li');
+NoResultAdded.className = '.no-result';
+NoResultAdded.textContent = 'No result returned';
+noResultAdded.style.display= '';
+studentList.appendChild(noResultAdded);
+}
+
+button.addEventListener('click', () => {
+   searchFunc(input, studentList);
+   
+   });
+
+   input.addEventListener('keyup', () => {
+      searchFunc(input, studentList);
+   
+   });
