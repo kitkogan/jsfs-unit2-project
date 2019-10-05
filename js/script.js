@@ -12,7 +12,7 @@ const numPerPage = 10; //var for storing number of items to show on each page (1
 
 // Create 'showPage function' to hide all students except for the 10 intended to display
 
-const showPage = (list, page) => { //two params: 'list' reps actual list of students & 'page' reps page number; both to be passed in as arguments when function is called 
+const showPage = (list, page) => { //two params: 'list' reps actual list of students & 'page' reps page number
    const startStudentIndex = (page * numPerPage) - numPerPage; //var for storing start index of items to be displayed on given page
    const endStudentIndex = page * numPerPage; // var for storing end index of items to be displayed on given page
 
@@ -26,7 +26,7 @@ const showPage = (list, page) => { //two params: 'list' reps actual list of stud
    } 
 }
 
-showPage(listItems, 1); // 'showPage' function called, 'listItems' var (global) and '1' (repping first page) passed in as arguments
+showPage(listItems, 1); // 'showPage' function called
 
 const page = document.querySelector('.page'); // returns first 'page' element that matches .page class
    const div = document.createElement('div'); //creates 'div' element to be added to DOM
@@ -35,134 +35,105 @@ const page = document.querySelector('.page'); // returns first 'page' element th
  
 //function to create, append, and add functionality to pagination links
 
-const appendPageLinks = (list) => { // One param: 'list' reps actual list of students to be passed in as argument when function is called
-   div.innerHTML = ''; // create/append DOM elements for page links: 
-   const numOfPages = Math.ceil(list.length / numPerPage); //var for calculating total number of pages
-   const ul = document.createElement('ul'); // create 'ul' element
-   for (let i = 0; i < numOfPages; i += 1) { // loop to take total number of pages and iterate appropriate number of times, creating correct amount of 'li' elements
-      const li = document.createElement('li'); // each 'li' element contains 'a' element with 'href' attribute and '#' element; 
+const appendPageLinks = (list) => { 
+   div.innerHTML = ''; 
+   const numOfPages = Math.ceil(list.length / numPerPage); 
+   const ul = document.createElement('ul'); 
+   for (let i = 0; i < numOfPages; i += 1) { 
+      const li = document.createElement('li');
       let a = document.createElement('a');
       a.href = '#';
       const pageAmount = a.textContent = i + 1; // text set to page num each link will show
-      li.appendChild(a); // 'li' appends to 'a'
-      ul.appendChild(li); // 'ul' appends to 'li'
-      div.appendChild(ul); // 'div' appends to 'ul'
+      li.appendChild(a); 
+      ul.appendChild(li); 
+      div.appendChild(ul); 
 
-      ul.firstElementChild.firstElementChild.className = "active" ; // initial 'active' class added to first pagination link
+      ul.firstElementChild.firstElementChild.className = 'active'; // initial 'active' class added to first pagination link
 
       // 'click' event listener added to each element
       a.addEventListener('click', (event) => { 
          for(let i = 0; i < ul.children.length; i++) { //when a pagination link is clicked, 'active' class name should be added to link clicked
            ul.children[i].firstElementChild.className = '';
          }
-         event.target.className = 'active'; // target properrty evenet object
+         event.target.className = 'active'; // target property evenet object
          showPage(listItems, pageAmount); // function to show a page called, var for listItems (global) as well as page number passed in as arguments
        }
       );
    }
 } 
 
-appendPageLinks(listItems); // 'appendPageLinks' function called, 'listItems' (global) passed in as argument
+appendPageLinks(listItems); // appendPageLinks function called
 
 // create search bar
-const searchBar = () => {
-   const pageHeader = document.querySelector('.page-header');
-   const createSearchDiv = document.createElement('div');
-   const searchInput = document.createElement('input');
-   const searchButton = document.createElement('button');
-   createSearchDiv.className = 'student-search';
-   searchInput.className = 'search-input';
-   searchInput.placeholder = 'Search for students...';
-   searchButton.textContent = 'Search';
-   PageHeader.appendChild(createSearchDiv);
-   const pageHeaderChild = pageHeader.lastElementChild;
-   pageHeaderChild.appendChild(searchInput);
-   const targetSearchDiv = document.querySelector('.student-search');
-   targetSearchDiv.appendChild(searchButton);
-}
+const pageHeader = document.querySelector('.page-header'); 
+const searchDiv = document.createElement('div');
+searchDiv.className = 'student-search';
+const input = document.createElement('input');
+input.placeholder = 'Search for students...';
+const button = document.createElement('button');
+button.textContent = 'Search';
 
-const noReturn = () => {
-   const checkResults = document.querySelector('.no-result');
-   if (checkResults) {
-      const ul = document.querySelector('.student-list');
-      const li = ul.querySelector('.no-result');
-      ul.removeChild(li);
-   }
+searchDiv.appendChild(input);
+searchDiv.appendChild(button);
+pageHeader.appendChild(searchDiv);
 
-const studentList = documentQuerySelector('.student-list');
-const NoResultAdded = document.createElement('li');
-NoResultAdded.className = 'no-result';
-NoResultAdded.textContent = 'No result returned';
-noResultAdded.style.display= ''
-const checkNoResult = document.quersySelector('.no-result');
-   if (checkNoResult) {
-      studentList.appendChild(checkNoResult)
-   }
 
-}
 
-document.addEventListener('click', (event) => {
-   const selectATags = document.quesrySelectorAll('a');
-   const select = event.target;
-
-   if (target.tagName == 'a'){
-      for (let i = 0; i < selectATags.length; i += 1) {
-         select[i].className = '';
-      
-      }
-      select.className = "active";
-      showPage(list, parseInt(target.textContent));
-      }
-   });
-   
-const searchButton = document.querySelector('.student-search button');
-const inputField = document.querySelector('input');
-
-searchButton.addEventListener('submit', (event) => {
-   const input = document.querySelector('input');
-   var genNewlist = [] //new array to hold in matches
-   if (event.target.tagName == "BUTTON") {    //if but search button was clicked
-      for (let i = 0; i < list.length; i += 1) {      //loop through original list
-         const h3 = list[i].querySelector("h3");      
-         const text = h3.textContent.toUpperCase();      //assigns the text content converted to lower case  of the h3's to text      
-         if (text.includes(input.value)) { //if text field is not blank and has a text match
-            genNewlist.push(list[i]); // push text matched names to new list
-         } else {
-            list[i].style.display = 'none'; // hide non match
-         }
-      }
-      
-   }
-   showPage(genNewlist, 1); // returns new page with matches
-   appendPageLinks(genNewlist); // returns new page links matching number of matches
-});
-
-//event listener for keyup
-inputForm.addEventListener('keyup', () => {
-   const input = document.querySelector('input');
-   var genNewlist = []  //new array to hold in matches
-   for (let i = 0; i < list.length; i += 1) {   //loop through original list 
-      const h3 = list[i].querySelector("h3");
-      const text = h3.textContent.toUpperCase(); //looking only at name text
-      if (text.includes(input.value)) { //if text field is not blank and has a text match
-         genNewlist.push(list[i]);  // push text matched names to new list
-      } else {
-         list[i].style.display = 'none'; // hide non match
-      }
-      
-   } 
-
-   if (genNewlist.length == 0) {
-      noResults(); //if list is blank run noResult()
+// searchBar function: accept queryEntry, scan for matches, if match occurs show result, if no match occurs show none
+const searchBar = (searchInput, studentList) => {
+     const queryEntry = searchInput.value.toUpperCase();
+     const queryResults = [];
+     
+     studentList.forEach(item => {
+     const queryText = item.children[0].children[1].textContent.toUpperCase()
+     
+     if (studentMatch(queryEntry, queryText)){
+      item.style.display = 'block';
+      queryResults.push(item);   
    } else {
-      const checkNoResult = document.querySelector('.no-result');
-      if (checkNoResult) {
-         const ul = document.querySelector('.student-list');
-         const li = ul.querySelector('.no-result');
-         ul.removeChild(li);
-      }
+      item.style.display = 'none';        
+   } 
+     
+   })
+
+   // create "no results found" message div container
+   const message = document.createElement('div');
+   const h3 = document.createElement('h3');
+   message.appendChild(h3);
+   page.appendChild(message);
+
+   // queryResults scanned, determines whether "no results found" message will be triggered
+   if (queryResults.length == 0) {
+      div.innerHTML='';
+      message.textContent = 'Sorry, no results matched your search';
    }
-   showPage(newlist, 1); // returns new page with matches
-   appendPageLinks(newlist); // returns new page links matching number of matches
+   else {
+      appendPageLinks(queryResults);
+
+   }
+
+   }
+
+   // studentMatch function: takes queryEntry and scans index for matches
+   const studentMatch = (queryEntry, queryText) => {
+     if (queryEntry.length >= 0) {
+   return queryText.indexOf(queryEntry) >= 0;
+     }
+     return false
+     
+   }
+   
+
+ 
+// Event listener search triggered by typing 
+input.addEventListener('keyup', () => {
+searchBar(input, listItems);
+
 });
-appendSearchBar();
+
+// Event Listener triggered by clicking search button
+button.addEventListener('click', () => {
+searchBar(input, listItems);
+
+});
+
