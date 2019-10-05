@@ -137,3 +137,7 @@ searchBar(input, listItems);
 
 });
 
+// Function to tell "refresh" button to reload/refresh webpage, as deleting search box entry does not seem to accomplish this
+const refreshPage = () => {
+   window.location.reload();
+} 
