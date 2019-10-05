@@ -15,3 +15,5 @@ I am going for an "exceeds expectations" grade, which requires additional goals:
   -if 10 or less results returned, 0 or 1 pagination links displayed
   -if 22 search results returned, 3 paginination links will display
 -Includes message informing user of 'no results' to be displayed on page when "0" results are found in a search entry
+
+I added a "Refresh" button because I noticed that when the search box is used and an error occcurs the error messages will just pile up in display. To my further frustration, when the search box is cleared manually, the pagination previously implemented does not trigger. Both of these issues seem to be remedied on page reload. Was able to successfully move the refresh button from middle of page to right but struggled to match button styling with "Search" buutton.
