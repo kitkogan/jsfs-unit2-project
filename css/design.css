@@ -43,6 +43,15 @@ body{
       color: #fff
     }
 
+    input[type="submit"] {
+      border-radius: 5px;
+      border: 1px solid #eaeaea;
+      padding: 8px 15px;
+      font-size: 14px;
+      background-color: #4ba6c3;
+      color: #fff
+    }
+
 .student-list{}
 
   .student-item{
