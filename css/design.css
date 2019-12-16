@@ -4,6 +4,12 @@ body{
   color: #222;
 }
 
+label {
+  color: #888;
+  font-weight: lighter;
+  margin-right: 0.5rem;
+}
+
 .page{
   margin: 50px auto;
   width: 70%;
@@ -43,6 +49,11 @@ body{
       color: #fff
     }
 
+    .page-header .student-search .search-sorting {
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: flex-end;
+    }
 
 .student-list{}
 
@@ -96,6 +107,11 @@ body{
     border-bottom: none;
   }
 
+  li.noresults > p {
+    color: #888;
+    font-weight: bold;
+  }
+
 .pagination{
   margin: 40px 0 0 0;
   text-align: center;
@@ -119,4 +135,8 @@ body{
       color: #fff;
     }
 
-  
+.items-per-page {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
